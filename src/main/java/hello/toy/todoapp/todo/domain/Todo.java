@@ -1,4 +1,4 @@
-package hello.toy.todo.task.domain;
+package hello.toy.todoapp.todo.domain;
 
 import jakarta.persistence.*;
 
