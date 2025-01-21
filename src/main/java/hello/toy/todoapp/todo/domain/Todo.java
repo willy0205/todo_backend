@@ -1,5 +1,6 @@
 package hello.toy.todoapp.todo.domain;
 
+import hello.toy.todoapp.member.domain.Member;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
@@ -19,8 +20,8 @@ public class Todo {
 
     private LocalDateTime endTime;
 
-//    @ManyToOne(fetch = FetchType.LAZY)
-//    @JoinColumn(name = "MEMBER_ID", nullable = false)
-//    private Member member;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "MEMBER_ID", nullable = false)
+    private Member member;
 
 }

@@ -40,7 +40,7 @@ public class Member {
     @OneToMany(mappedBy = "blocked", cascade = CascadeType.ALL)
     private List<MemberStatus> blockedList;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "member",cascade = CascadeType.ALL)
     private List<Todo> todoList;
 
 }
