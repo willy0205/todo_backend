@@ -24,7 +24,7 @@ public class CallController {
     private int num = 0;
 
 
-    @GetMapping("/api/call")
+    @GetMapping("/call")
     @Operation(summary = "테스트 용 get requst", description = "문찬호씨가 테스트 용으로 만든 get request입니다. 많은 관심 부탁드립니다.")
     @ApiResponse(responseCode = "200", description = "성공", content = @Content(schema = @Schema(implementation = Call.class))
     )
@@ -35,7 +35,7 @@ public class CallController {
     }
 
 
-    @PostMapping("/api/call")
+    @PostMapping("/call")
     @Operation(summary = "테스트 용으로 id를 입력합니다. request만 날리면 알아서 1씩 증가시키면서 id 가 들어갑니다.")
     @ApiResponse(
         responseCode = "200",
