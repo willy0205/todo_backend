@@ -1,6 +1,7 @@
 package hello.toy.todoapp.todo.service;
 
 import hello.toy.todoapp.member.domain.Member;
+import hello.toy.todoapp.member.repository.MemberRepository;
 import hello.toy.todoapp.todo.domain.Todo;
 import hello.toy.todoapp.todo.model.CreateTodoRequest;
 import hello.toy.todoapp.todo.model.SelectTodoDto;
@@ -19,7 +20,7 @@ import java.util.Optional;
 @Transactional(readOnly = true)
 public class TodoService {
     private final TodoRepository todoRepository;
-//    private final MemberRepository memberRepository;
+    private final MemberRepository memberRepository;
 
     @Transactional(readOnly = false)
     public Long create(CreateTodoRequest createTodoRequest) throws Exception {
