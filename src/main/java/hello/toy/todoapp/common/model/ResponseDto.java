@@ -14,4 +14,21 @@ public class ResponseDto<T> {
     // 에러 정보를 위한 추가 필드 (선택 사항)
     private String error;    // 에러 메시지 (있을 경우)
 
+    public static <T> ResponseDto<T> of(boolean success, String message, T data) {
+        return ResponseDto.<T>builder()
+            .success(success)
+            .message(message)
+            .data(data)
+            .build();
+    }
+
+    public static <T> ResponseDto<T> of(boolean success, String message, T data, String error) {
+        return ResponseDto.<T>builder()
+            .success(success)
+            .message(message)
+            .data(data)
+            .error(error)
+            .build();
+    }
+
 }
