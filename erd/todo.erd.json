@@ -4,8 +4,8 @@
   "settings": {
     "width": 2000,
     "height": 2000,
-    "scrollTop": -217.9164,
-    "scrollLeft": 0,
+    "scrollTop": -280.9102,
+    "scrollLeft": -584.4371,
     "zoomLevel": 0.73,
     "show": 431,
     "database": 4,
@@ -793,19 +793,19 @@
         "id": "dULlFyVKTsmvL3UOwY50p",
         "tableId": "wEosjvxrWw7pvM7_FcZzx",
         "name": "STATUS",
-        "comment": "친구요청 상태(CANCEL, REJECT )",
+        "comment": "친구요청 상태(CANCEL, REJECT, ALLOW )",
         "dataType": "ENUM",
         "default": "",
         "options": 8,
         "ui": {
           "keys": 0,
           "widthName": 60,
-          "widthComment": 180,
+          "widthComment": 227,
           "widthDataType": 60,
           "widthDefault": 60
         },
         "meta": {
-          "updateAt": 1737442487464,
+          "updateAt": 1738562061614,
           "createAt": 1737442315440
         }
       }
@@ -1418,7 +1418,7 @@
         "name": 1737442322822,
         "dataType": 1737442327916,
         "options(notNull)": 1737442329529,
-        "comment": 1737442487463
+        "comment": 1738562061612
       }
     ]
   }
