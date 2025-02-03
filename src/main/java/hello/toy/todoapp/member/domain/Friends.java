@@ -1,5 +1,6 @@
 package hello.toy.todoapp.member.domain;
 
+import hello.toy.todoapp.member.enums.FirendRequestStatus;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -25,6 +26,8 @@ public class Friends {
     @JoinColumn(name = "FRIEND_ID")
     @ManyToOne(fetch = FetchType.LAZY)
     private Member friend;
+
+    private FirendRequestStatus status;
 
 
 }
