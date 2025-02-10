@@ -29,6 +29,9 @@ public class FriendService {
         ResponseDto responseDto = null;
 
         try {
+
+            // 블락된 사용자인지 확인하는 로직 추가하기
+
             FriendsRequests friendsRequests = new FriendsRequests();
             Optional<Member> sender = memberRepository.findById(friendRequest.getMemberId());
             Optional<Member> receiver = memberRepository.findById(friendRequest.getFriendId());
