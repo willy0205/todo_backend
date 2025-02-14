@@ -1,6 +1,6 @@
 package hello.toy.todoapp.member.model;
 
-import hello.toy.todoapp.member.enums.FirendRequestStatus;
+import hello.toy.todoapp.member.enums.FriendRequestStatus;
 import io.swagger.v3.oas.annotations.Hidden;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
@@ -23,7 +23,7 @@ public class FriendRequest {
 
     @Schema(description = "요청 상태")
     @Hidden
-    private FirendRequestStatus status;
+    private FriendRequestStatus status;
 
 
 }
