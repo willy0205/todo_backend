@@ -4,10 +4,14 @@ import hello.toy.todoapp.common.model.ResponseDto;
 import hello.toy.todoapp.member.domain.Friends;
 import hello.toy.todoapp.member.domain.FriendsRequests;
 import hello.toy.todoapp.member.domain.Member;
+import hello.toy.todoapp.member.domain.MemberStatus;
 import hello.toy.todoapp.member.enums.FriendRequestStatus;
+import hello.toy.todoapp.member.model.FriendRequest;
 import hello.toy.todoapp.member.model.MemberResponse;
+import hello.toy.todoapp.member.repository.FriendRepository;
 import hello.toy.todoapp.member.repository.FriendRequestRepository;
 import hello.toy.todoapp.member.repository.MemberRepository;
+import hello.toy.todoapp.member.repository.MemberStatusRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +23,8 @@ public class MemberService {
 
     private final MemberRepository memberRepository;
     private final FriendRequestRepository friendRequestRepository;
+    private final FriendRepository friendRepository;
+    private final MemberStatusRepository memberStatusRepository;
 
     // 나의 친구 목록 조회
     public ResponseDto<List<MemberResponse>> friendList(long userId) {
@@ -87,5 +93,29 @@ public class MemberService {
     }
 
     // 친구 차단하는 api
+    public ResponseDto<List<MemberResponse>> blockFriend(FriendRequest friendRequest) {
+
+        ResponseDto responseDto = null;
+
+        try {
+            friendRepository.deleteById(friendRequest.getId());
+
+            MemberStatus memberStatus = new MemberStatus();
+
+            Member member = memberRepository.findById(friendRequest.getMemberId()).orElseThrow();
+            Member blockFriend = memberRepository.findById(friendRequest.getFriendId()).orElseThrow();
+
+            memberStatus.setMember(member);
+            memberStatus.setBlocked(blockFriend);
+
+            MemberStatus blockMemberStatus = memberStatusRepository.save(memberStatus);
+            responseDto = ResponseDto.builder().data(MemberResponse.of(blockMemberStatus)).message("request success").success(true).build();
+        } catch (Exception e) {
+            responseDto = ResponseDto.builder().message("request failed").success(false).build();
+        }
+
+
+        return responseDto;
+    }
 
 }
