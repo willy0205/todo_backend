@@ -1,30 +1,70 @@
 package hello.toy.todoapp.member.service;
 
 import hello.toy.todoapp.common.model.ResponseDto;
+import hello.toy.todoapp.member.domain.Authority;
 import hello.toy.todoapp.member.domain.Friends;
 import hello.toy.todoapp.member.domain.FriendsRequests;
 import hello.toy.todoapp.member.domain.Member;
 import hello.toy.todoapp.member.domain.MemberStatus;
+import hello.toy.todoapp.member.enums.AuthorityEnum;
 import hello.toy.todoapp.member.enums.FriendRequestStatus;
 import hello.toy.todoapp.member.model.FriendRequest;
 import hello.toy.todoapp.member.model.MemberResponse;
+import hello.toy.todoapp.member.model.UserSignUpRequestDto;
+import hello.toy.todoapp.member.repository.AuthorityRepository;
 import hello.toy.todoapp.member.repository.FriendRepository;
 import hello.toy.todoapp.member.repository.FriendRequestRepository;
 import hello.toy.todoapp.member.repository.MemberRepository;
 import hello.toy.todoapp.member.repository.MemberStatusRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class MemberService {
 
     private final MemberRepository memberRepository;
     private final FriendRequestRepository friendRequestRepository;
     private final FriendRepository friendRepository;
     private final MemberStatusRepository memberStatusRepository;
+    private final AuthorityRepository authorityRepository;
+    private final PasswordEncoder passwordEncoder;
+
+    @Transactional
+    public ResponseDto signup(UserSignUpRequestDto userDto) {
+        if (memberRepository.existsMemberByLoginId(userDto.getLoginId())) {
+            log.warn("가입 요청 실패: {}", "LOGIN ID IS ALREADY EXIST");
+            return ResponseDto.<String>builder().error("LOGIN ID IS ALREADY EXIST").message("request success").success(true).build();
+        }
+
+        try {
+            createUser(userDto);
+            return ResponseDto.builder().message("request success").success(true).build();
+        } catch (Exception e) {
+            log.error("가입 요청 중 오류 발생: {}", e.getMessage(), e);
+            return ResponseDto.builder().message("request failed").success(false).build();
+        }
+    }
+
+    private void createUser(UserSignUpRequestDto userDto) {
+
+        Authority userAuthority = authorityRepository.findAuthorityByAuthorityName(AuthorityEnum.NORMAL).orElseThrow();
+
+        Member member = Member.builder()
+            .loginId(userDto.getLoginId())
+            .name(userDto.getName())
+            .password(passwordEncoder.encode(userDto.getPassword()))
+            .authority(userAuthority)
+            .build();
+
+        memberRepository.save(member);
+    }
 
     // 나의 친구 목록 조회
     public ResponseDto<List<MemberResponse>> friendList(long userId) {

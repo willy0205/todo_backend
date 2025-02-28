@@ -1,5 +1,6 @@
 package hello.toy.todoapp.common.model;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Builder;
 import lombok.Data;
@@ -7,6 +8,7 @@ import lombok.Data;
 @Builder
 @Data
 @Schema(description = "반환용 DTO")
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class ResponseDto<T> {
 
     @Schema(description = "요청의 성공 여부")
