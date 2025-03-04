@@ -1,6 +1,7 @@
 package hello.toy.todoapp.todo.api;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import hello.toy.todoapp.security.TestSecurityConfig;
 import hello.toy.todoapp.todo.model.CreateTodoRequest;
 import hello.toy.todoapp.todo.model.SelectTodoDto;
 import hello.toy.todoapp.todo.model.UpdateTodoDto;
@@ -9,6 +10,7 @@ import hello.toy.todoapp.todo.service.TodoService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
@@ -21,6 +23,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @WebMvcTest(TodoController.class)
+@Import(TestSecurityConfig.class)
 class TodoControllerTest {
 
     @Autowired

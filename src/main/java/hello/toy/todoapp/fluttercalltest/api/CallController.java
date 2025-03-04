@@ -52,4 +52,9 @@ public class CallController {
         return call.getDescription();
     }
 
+    @GetMapping("/docker")
+    public String dockerTest() {
+        return "hello docker";
+    }
+
 }

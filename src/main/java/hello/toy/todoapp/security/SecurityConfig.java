@@ -49,6 +49,7 @@ public class SecurityConfig {
             .authorizeHttpRequests(auth -> auth
                 .requestMatchers("/api/member/login").permitAll() // 로그인 API
                 .requestMatchers("/api/member/signup").permitAll() // 회원가입 API
+                .requestMatchers("/api/docker").permitAll() // 도커 테스트
                 .requestMatchers(PathRequest.toH2Console()).permitAll() // h2-console 요청 인증 무시
                 .anyRequest().authenticated() // 그 외 인증 없이 접근 불가
             )
