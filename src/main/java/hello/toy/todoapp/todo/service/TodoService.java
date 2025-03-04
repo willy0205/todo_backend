@@ -25,7 +25,7 @@ public class TodoService {
     @Transactional(readOnly = false)
     public Long create(CreateTodoRequest createTodoRequest) throws Exception {
         // 맴버 찾기
-        Optional<Member> member = memberRepository.findById(createTodoRequest.getMemberId());
+        Optional<Member> member = memberRepository.findMemberByLoginId(createTodoRequest.getMemberId());
 
         Todo todo = Todo.createTodo(createTodoRequest, member.orElseThrow());
         Todo saved = todoRepository.save(todo);

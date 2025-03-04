@@ -33,8 +33,8 @@ public class FriendService {
             // 블락된 사용자인지 확인하는 로직 추가하기
 
             FriendsRequests friendsRequests = new FriendsRequests();
-            Optional<Member> sender = memberRepository.findById(friendRequest.getMemberId());
-            Optional<Member> receiver = memberRepository.findById(friendRequest.getFriendId());
+            Optional<Member> sender = memberRepository.findMemberByLoginId(friendRequest.getMemberId());
+            Optional<Member> receiver = memberRepository.findMemberByLoginId(friendRequest.getFriendId());
 
             friendsRequests.setReceiver(receiver.orElseThrow());
             friendsRequests.setSender(sender.orElseThrow());
@@ -105,7 +105,7 @@ public class FriendService {
         ResponseDto responseDto = null;
 
         try {
-            Member me = memberRepository.findById(friendRequest.getMemberId()).orElseThrow();
+            Member me = memberRepository.findMemberByLoginId(friendRequest.getMemberId()).orElseThrow();
             List<FriendResponse> returnList = friendRequestRepository.findAllByReceiverAndStatus(me, FriendRequestStatus.REQUEST)
                 .orElseThrow()
                 .stream().map(friendsRequests -> {

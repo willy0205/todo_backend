@@ -84,7 +84,7 @@ public class TokenProvider implements InitializingBean {
         return new UsernamePasswordAuthenticationToken(principal, token, authorities);
     }
 
-    public String getUseremail(String authorizationHeader) {
+    public String getUserId(String authorizationHeader) {
         String jwtToken = authorizationHeader.substring(7);
         return getAuthentication(jwtToken).getName();
     }
