@@ -4,8 +4,8 @@
   "settings": {
     "width": 2000,
     "height": 2000,
-    "scrollTop": -217.9164,
-    "scrollLeft": 0,
+    "scrollTop": -231.7455,
+    "scrollLeft": -244.4157,
     "zoomLevel": 0.73,
     "show": 431,
     "database": 4,
@@ -106,14 +106,14 @@
         ],
         "ui": {
           "x": 549.6165,
-          "y": 291.3014,
+          "y": 336.5069,
           "zIndex": 33,
           "widthName": 60,
           "widthComment": 60,
           "color": ""
         },
         "meta": {
-          "updateAt": 1736835182574,
+          "updateAt": 1738565812975,
           "createAt": 1736832461655
         }
       },
@@ -195,15 +195,15 @@
           "pnZGx70t2q6_Nqj4jEukW"
         ],
         "ui": {
-          "x": 550.3037,
-          "y": 151.1682,
+          "x": 546.1941,
+          "y": 179.9353,
           "zIndex": 152,
           "widthName": 105,
           "widthComment": 81,
           "color": ""
         },
         "meta": {
-          "updateAt": 1736835184697,
+          "updateAt": 1738565815496,
           "createAt": 1736834765155
         }
       }
@@ -793,19 +793,19 @@
         "id": "dULlFyVKTsmvL3UOwY50p",
         "tableId": "wEosjvxrWw7pvM7_FcZzx",
         "name": "STATUS",
-        "comment": "친구요청 상태(CANCEL, REJECT )",
+        "comment": "친구요청 상태(CANCEL, REJECT, ALLOW, REQUEST)",
         "dataType": "ENUM",
         "default": "",
         "options": 8,
         "ui": {
           "keys": 0,
           "widthName": 60,
-          "widthComment": 180,
+          "widthComment": 285,
           "widthDataType": 60,
           "widthDefault": 60
         },
         "meta": {
-          "updateAt": 1737442487464,
+          "updateAt": 1738563035256,
           "createAt": 1737442315440
         }
       }
@@ -831,7 +831,7 @@
             "Ly7RK2sT8TvlsaNkVPMVx"
           ],
           "x": 549.6165,
-          "y": 391.3014,
+          "y": 436.5069,
           "direction": 1
         },
         "meta": {
@@ -970,8 +970,8 @@
           "columnIds": [
             "WCPjC-keYpTucZfsi5TM7"
           ],
-          "x": 550.3037,
-          "y": 183.1682,
+          "x": 546.1941,
+          "y": 211.9353,
           "direction": 1
         },
         "meta": {
@@ -998,8 +998,8 @@
           "columnIds": [
             "pnZGx70t2q6_Nqj4jEukW"
           ],
-          "x": 550.3037,
-          "y": 247.1682,
+          "x": 546.1941,
+          "y": 275.9353,
           "direction": 1
         },
         "meta": {
@@ -1418,7 +1418,7 @@
         "name": 1737442322822,
         "dataType": 1737442327916,
         "options(notNull)": 1737442329529,
-        "comment": 1737442487463
+        "comment": 1738563035254
       }
     ]
   }
