@@ -10,14 +10,14 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 public class CreateTodoRequest {
-    private Long memberId;
+    private String memberId;
 
     private String title;
 
     private String description;
     private LocalDateTime startTime;
     private LocalDateTime endTime;
-    public CreateTodoRequest(Long memberId, String title, String description) {
+    public CreateTodoRequest(String memberId, String title, String description) {
         this.memberId = memberId;
         this.title = title;
         this.description = description;

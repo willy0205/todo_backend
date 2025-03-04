@@ -4,6 +4,7 @@ import hello.toy.todoapp.common.model.ResponseDto;
 import hello.toy.todoapp.member.model.FriendRequest;
 import hello.toy.todoapp.member.model.FriendResponse;
 import hello.toy.todoapp.member.service.FriendService;
+import hello.toy.todoapp.security.TokenProvider;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -13,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -24,6 +26,7 @@ import java.util.List;
 public class FriendController {
 
     private final FriendService friendService;
+    private final TokenProvider tokenProvider;
 
     // 친구 요청
     @PostMapping("request")
@@ -33,10 +36,9 @@ public class FriendController {
         description = "성공",
         content = @Content(schema = @Schema(implementation = Long.class))
     )
-    public ResponseEntity<ResponseDto<Long>> request(@RequestBody FriendRequest friendRequest) {
+    public ResponseEntity<ResponseDto<Long>> request(@RequestHeader("Authorization") String authorizationHeader, @RequestBody FriendRequest friendRequest) {
         // user id
-        // header에서 jwt를 추출해서 거기서 내 user id를 받아온다고 치고~
-        long userId = 1;
+        String userId = tokenProvider.getUserId(authorizationHeader);
         friendRequest.setMemberId(userId);
         ResponseDto<Long> responseDto = friendService.request(friendRequest);
 
@@ -51,10 +53,10 @@ public class FriendController {
         description = "성공",
         content = @Content(schema = @Schema(implementation = Long.class))
     )
-    public ResponseEntity<ResponseDto<Long>> cancel(@RequestBody FriendRequest friendRequest) {
+    public ResponseEntity<ResponseDto<Long>> cancel(@RequestHeader("Authorization") String authorizationHeader, @RequestBody FriendRequest friendRequest) {
         // user id
         // header에서 jwt를 추출해서 거기서 내 user id를 받아온다고 치고~
-        long userId = 1;
+        String userId = tokenProvider.getUserId(authorizationHeader);
         friendRequest.setMemberId(userId);
         ResponseDto<Long> responseDto = friendService.cancel(friendRequest);
 
@@ -69,10 +71,10 @@ public class FriendController {
         description = "성공",
         content = @Content(schema = @Schema(implementation = Long.class))
     )
-    public ResponseEntity<ResponseDto<Long>> allow(@RequestBody FriendRequest friendRequest) {
+    public ResponseEntity<ResponseDto<Long>> allow(@RequestHeader("Authorization") String authorizationHeader, @RequestBody FriendRequest friendRequest) {
         // user id
         // header에서 jwt를 추출해서 거기서 내 user id를 받아온다고 치고~
-        long userId = 1;
+        String userId = tokenProvider.getUserId(authorizationHeader);
         friendRequest.setMemberId(userId);
         ResponseDto<Long> responseDto = friendService.allow(friendRequest);
 
@@ -87,10 +89,10 @@ public class FriendController {
         description = "성공",
         content = @Content(schema = @Schema(implementation = Long.class))
     )
-    public ResponseEntity<ResponseDto<List<FriendResponse>>> requestList(@RequestBody FriendRequest friendRequest) {
+    public ResponseEntity<ResponseDto<List<FriendResponse>>> requestList(@RequestHeader("Authorization") String authorizationHeader, @RequestBody FriendRequest friendRequest) {
         // user id
         // header에서 jwt를 추출해서 거기서 내 user id를 받아온다고 치고~
-        long userId = 1;
+        String userId = tokenProvider.getUserId(authorizationHeader);
         friendRequest.setMemberId(userId);
         ResponseDto<List<FriendResponse>> responseDto = friendService.requestList(friendRequest);
 

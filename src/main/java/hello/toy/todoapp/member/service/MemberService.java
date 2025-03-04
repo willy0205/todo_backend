@@ -67,12 +67,12 @@ public class MemberService {
     }
 
     // 나의 친구 목록 조회
-    public ResponseDto<List<MemberResponse>> friendList(long userId) {
+    public ResponseDto<List<MemberResponse>> friendList(String userId) {
 
         ResponseDto responseDto = null;
 
         try {
-            Member member = memberRepository.findById(userId).orElseThrow();
+            Member member = memberRepository.findMemberByLoginId(userId).orElseThrow();
             List<Friends> firendList = member.getFriends();
             List<MemberResponse> returnList = firendList.stream().map(MemberResponse::of).toList();
             responseDto = ResponseDto.builder().data(returnList).message("request success").success(true).build();
@@ -84,11 +84,11 @@ public class MemberService {
     }
 
     // 내가 친구 요청한 목록 조회
-    public ResponseDto<List<MemberResponse>> myRequestFriendList(long userId) {
+    public ResponseDto<List<MemberResponse>> myRequestFriendList(String userId) {
         ResponseDto responseDto = null;
 
         try {
-            Member member = memberRepository.findById(userId).orElseThrow();
+            Member member = memberRepository.findMemberByLoginId(userId).orElseThrow();
             List<FriendsRequests> friendsRequestSendList = member.getFriendsRequestSendList();
             List<MemberResponse> returnList = friendsRequestSendList.stream().map(MemberResponse::of).toList();
             responseDto = ResponseDto.builder().data(returnList).message("request success").success(true).build();
@@ -119,11 +119,11 @@ public class MemberService {
     }
 
     // 내가 차단한 친구목록 조회
-    public ResponseDto<List<MemberResponse>> blockedFriendList(long userId) {
+    public ResponseDto<List<MemberResponse>> blockedFriendList(String userId) {
         ResponseDto responseDto = null;
 
         try {
-            Member member = memberRepository.findById(userId).orElseThrow();
+            Member member = memberRepository.findMemberByLoginId(userId).orElseThrow();
             List<MemberResponse> result = member.getBlockedList().stream().map(MemberResponse::of).toList();
             responseDto = ResponseDto.builder().data(result).message("request success").success(true).build();
         } catch (Exception e) {
@@ -142,8 +142,8 @@ public class MemberService {
 
             MemberStatus memberStatus = new MemberStatus();
 
-            Member member = memberRepository.findById(friendRequest.getMemberId()).orElseThrow();
-            Member blockFriend = memberRepository.findById(friendRequest.getFriendId()).orElseThrow();
+            Member member = memberRepository.findMemberByLoginId(friendRequest.getMemberId()).orElseThrow();
+            Member blockFriend = memberRepository.findMemberByLoginId(friendRequest.getFriendId()).orElseThrow();
 
             memberStatus.setMember(member);
             memberStatus.setBlocked(blockFriend);

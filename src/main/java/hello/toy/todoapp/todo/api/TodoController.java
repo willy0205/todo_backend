@@ -1,6 +1,7 @@
 package hello.toy.todoapp.todo.api;
 
 import hello.toy.todoapp.common.model.ResponseDto;
+import hello.toy.todoapp.security.TokenProvider;
 import hello.toy.todoapp.todo.model.CreateTodoRequest;
 import hello.toy.todoapp.todo.model.SelectTodoDto;
 import hello.toy.todoapp.todo.model.UpdateTodoDto;
@@ -18,16 +19,19 @@ import java.util.List;
 public class TodoController {
 
     private final TodoService todoService;
+    private final TokenProvider tokenProvider;
 
     /**
      * 할 일 생성
      */
     @PostMapping("/todo")
-    public ResponseEntity<ResponseDto<Long>> create(@RequestBody CreateTodoRequest request) {
+    public ResponseEntity<ResponseDto<Long>> create(@RequestHeader("Authorization") String authorizationHeader, @RequestBody CreateTodoRequest request) {
 
         ResponseDto<Long> res = null;
 
         try {
+            String userId = tokenProvider.getUserId(authorizationHeader);
+            request.setMemberId(userId);
             Long todoId = todoService.create(request);
             res = ResponseDto.of(true, "success create todo", todoId);
             return ResponseEntity.status(HttpStatus.CREATED).body(res);
@@ -41,7 +45,7 @@ public class TodoController {
      * 할 일 수정
      */
     @PutMapping("/todo/{id}")
-    public ResponseEntity<ResponseDto<UpdateTodoDto>> update(@RequestBody UpdateTodoRequest updateTodoRequest,
+    public ResponseEntity<ResponseDto<UpdateTodoDto>> update(@RequestHeader("Authorization") String authorizationHeader, @RequestBody UpdateTodoRequest updateTodoRequest,
                                                              @PathVariable("id") Long id) {
         ResponseDto<UpdateTodoDto> res = null;
 

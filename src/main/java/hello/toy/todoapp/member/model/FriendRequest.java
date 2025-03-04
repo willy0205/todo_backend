@@ -16,10 +16,10 @@ public class FriendRequest {
 
     @Schema(description = "멤버 아이디")
     @Hidden
-    private long memberId;
+    private String memberId;
 
     @Schema(description = "요청 대상 친구 아이디")
-    private long friendId;
+    private String friendId;
 
     @Schema(description = "요청 상태")
     @Hidden

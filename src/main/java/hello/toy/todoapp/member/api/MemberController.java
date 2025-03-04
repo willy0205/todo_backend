@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -79,10 +80,10 @@ public class MemberController {
         description = "성공",
         content = @Content(schema = @Schema(implementation = MemberResponse.class))
     )
-    public ResponseEntity<ResponseDto<List<MemberResponse>>> friendList() {
+    public ResponseEntity<ResponseDto<List<MemberResponse>>> friendList(@RequestHeader("Authorization") String authorizationHeader) {
         // user id
         // header에서 jwt를 추출해서 거기서 내 user id를 받아온다고 치고~
-        long userId = 1;
+        String userId = tokenProvider.getUserId(authorizationHeader);
         ResponseDto<List<MemberResponse>> result = memberService.friendList(userId);
         return ResponseEntity.ok(result);
     }
@@ -95,10 +96,10 @@ public class MemberController {
         description = "성공",
         content = @Content(schema = @Schema(implementation = MemberResponse.class))
     )
-    public ResponseEntity<ResponseDto<List<MemberResponse>>> myRequestFriendList() {
+    public ResponseEntity<ResponseDto<List<MemberResponse>>> myRequestFriendList(@RequestHeader("Authorization") String authorizationHeader) {
         // user id
         // header에서 jwt를 추출해서 거기서 내 user id를 받아온다고 치고~
-        long userId = 1;
+        String userId = tokenProvider.getUserId(authorizationHeader);
         ResponseDto<List<MemberResponse>> result = memberService.myRequestFriendList(userId);
         return ResponseEntity.ok(result);
     }
@@ -124,10 +125,10 @@ public class MemberController {
         description = "성공",
         content = @Content(schema = @Schema(implementation = Void.class))
     )
-    public ResponseEntity<ResponseDto<List<MemberResponse>>> blockedFriendList() {
+    public ResponseEntity<ResponseDto<List<MemberResponse>>> blockedFriendList(@RequestHeader("Authorization") String authorizationHeader) {
         // user id
         // header에서 jwt를 추출해서 거기서 내 user id를 받아온다고 치고~
-        long userId = 1;
+        String userId = tokenProvider.getUserId(authorizationHeader);
         ResponseDto<List<MemberResponse>> result = memberService.blockedFriendList(userId);
         return ResponseEntity.ok(result);
     }
@@ -140,10 +141,10 @@ public class MemberController {
         description = "성공",
         content = @Content(schema = @Schema(implementation = Void.class))
     )
-    public ResponseEntity<ResponseDto<List<MemberResponse>>> blockFriend(@RequestBody FriendRequest friendRequest) {
+    public ResponseEntity<ResponseDto<List<MemberResponse>>> blockFriend(@RequestHeader("Authorization") String authorizationHeader, @RequestBody FriendRequest friendRequest) {
         // user id
         // header에서 jwt를 추출해서 거기서 내 user id를 받아온다고 치고~
-        long userId = 1;
+        String userId = tokenProvider.getUserId(authorizationHeader);
         friendRequest.setMemberId(userId);
         ResponseDto<List<MemberResponse>> result = memberService.blockFriend(friendRequest);
         return ResponseEntity.ok(result);
